@@ -146,7 +146,7 @@ const mixin = {
             } else return defaultVal;
         },
         apiUrl() {
-            return this.getPreferenceString("instance", "https://pipedapi.kavin.rocks");
+            return this.getPreferenceString("instance", "https://tubeapi.habedieeh.re/");
         },
         authApiUrl() {
             if (this.getPreferenceBoolean("authInstance", false)) {
