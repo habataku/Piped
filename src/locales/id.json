@@ -10,7 +10,9 @@
         "playlists": "Daftar Putar",
         "instance": "Instansi",
         "account": "Akun",
-        "player": "Pemain"
+        "player": "Pemain",
+        "livestreams": "Siaran Langsung",
+        "channels": "Saluran"
     },
     "player": {
         "watch_on": "Tonton di {0}"
@@ -112,7 +114,11 @@
         "hide_watched": "Sembunyikan video yang telah ditonton di umpan",
         "status_page": "Status",
         "source_code": "Kode sumber",
-        "reply_count": "{count} balasan"
+        "reply_count": "{count} balasan",
+        "minimize_comments_default": "Kecilkan Komentar secara bawaan",
+        "minimize_comments": "Kecilkan Komentar",
+        "show_watch_on_youtube": "Tampilkan tombol Tonton di YouTube",
+        "minimize_chapters_default": "Kecilkan Bab secara bawaan"
     },
     "comment": {
         "pinned_by": "Dipasangi pin oleh {author}",
@@ -164,6 +170,7 @@
         "page_not_found": "Laman tidak ditemukan",
         "preferences_note": "Catatan: preferensi disimpan dalam penyimpanan lokal peramban Anda. Menghapus data peramban Anda akan mengatur ulang.",
         "copied": "Disalin!",
-        "cannot_copy": "Tidak dapat menyalin!"
+        "cannot_copy": "Tidak dapat menyalin!",
+        "local_storage": "Tindakan ini membutuhkan localStorage, apakah kuki diaktifkan?"
     }
 }

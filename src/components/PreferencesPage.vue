@@ -96,6 +96,26 @@
             @change="onChange($event)"
         />
     </label>
+    <label class="pref" for="chkMinimizeChapters">
+        <strong v-t="'actions.minimize_chapters_default'" />
+        <input
+            id="chkMinimizeChapters"
+            v-model="minimizeChapters"
+            class="checkbox"
+            type="checkbox"
+            @change="onChange($event)"
+        />
+    </label>
+    <label class="pref" for="chkShowWatchOnYouTube">
+        <strong v-t="'actions.show_watch_on_youtube'" />
+        <input
+            id="chkShowWatchOnYouTube"
+            v-model="showWatchOnYouTube"
+            class="checkbox"
+            type="checkbox"
+            @change="onChange($event)"
+        />
+    </label>
     <label class="pref" for="chkStoreSearchHistory">
         <strong v-t="'actions.store_search_history'" />
         <input
@@ -163,71 +183,96 @@
             @change="onChange($event)"
         />
     </label>
-    <label class="pref" for="chkSkipSponsors">
-        <strong v-t="'actions.skip_sponsors'" />
-        <input id="chkSkipSponsors" v-model="skipSponsor" class="checkbox" type="checkbox" @change="onChange($event)" />
-    </label>
-    <label class="pref" for="chkSkipIntro">
-        <strong v-t="'actions.skip_intro'" />
-        <input id="chkSkipIntro" v-model="skipIntro" class="checkbox" type="checkbox" @change="onChange($event)" />
-    </label>
-    <label class="pref" for="chkSkipOutro">
-        <strong v-t="'actions.skip_outro'" />
-        <input id="chkSkipOutro" v-model="skipOutro" class="checkbox" type="checkbox" @change="onChange($event)" />
-    </label>
-    <label class="pref" for="chkSkipPreview">
-        <strong v-t="'actions.skip_preview'" />
-        <input id="chkSkipPreview" v-model="skipPreview" class="checkbox" type="checkbox" @change="onChange($event)" />
-    </label>
-    <label class="pref" for="chkSkipInteraction">
-        <strong v-t="'actions.skip_interaction'" />
-        <input
-            id="chkSkipInteraction"
-            v-model="skipInteraction"
-            class="checkbox"
-            type="checkbox"
-            @change="onChange($event)"
-        />
-    </label>
-    <label class="pref" for="chkSkipSelfPromo">
-        <strong v-t="'actions.skip_self_promo'" />
-        <input
-            id="chkSkipSelfPromo"
-            v-model="skipSelfPromo"
-            class="checkbox"
-            type="checkbox"
-            @change="onChange($event)"
-        />
-    </label>
-    <label class="pref" for="chkSkipNonMusic">
-        <strong v-t="'actions.skip_non_music'" />
-        <input
-            id="chkSkipNonMusic"
-            v-model="skipMusicOffTopic"
-            class="checkbox"
-            type="checkbox"
-            @change="onChange($event)"
-        />
-    </label>
-    <label class="pref" for="chkSkipHighlight">
-        <strong v-t="'actions.skip_highlight'" />
-        <input
-            id="chkSkipHighlight"
-            v-model="skipHighlight"
-            class="checkbox"
-            type="checkbox"
-            @change="onChange($event)"
-        />
-    </label>
-    <label class="pref" for="chkSkipFiller">
-        <strong v-t="'actions.skip_filler_tangent'" />
-        <input id="chkSkipFiller" v-model="skipFiller" class="checkbox" type="checkbox" @change="onChange($event)" />
-    </label>
-    <label class="pref" for="chkShowMarkers">
-        <strong v-t="'actions.show_markers'" />
-        <input id="chkShowMarkers" v-model="showMarkers" class="checkbox" type="checkbox" @change="onChange($event)" />
-    </label>
-
+    <div v-if="sponsorBlock">
+        <label class="pref" for="chkSkipSponsors">
+            <strong v-t="'actions.skip_sponsors'" />
+            <input
+                id="chkSkipSponsors"
+                v-model="skipSponsor"
+                class="checkbox"
+                type="checkbox"
+                @change="onChange($event)"
+            />
+        </label>
+        <label class="pref" for="chkSkipIntro">
+            <strong v-t="'actions.skip_intro'" />
+            <input id="chkSkipIntro" v-model="skipIntro" class="checkbox" type="checkbox" @change="onChange($event)" />
+        </label>
+        <label class="pref" for="chkSkipOutro">
+            <strong v-t="'actions.skip_outro'" />
+            <input id="chkSkipOutro" v-model="skipOutro" class="checkbox" type="checkbox" @change="onChange($event)" />
+        </label>
+        <label class="pref" for="chkSkipPreview">
+            <strong v-t="'actions.skip_preview'" />
+            <input
+                id="chkSkipPreview"
+                v-model="skipPreview"
+                class="checkbox"
+                type="checkbox"
+                @change="onChange($event)"
+            />
+        </label>
+        <label class="pref" for="chkSkipInteraction">
+            <strong v-t="'actions.skip_interaction'" />
+            <input
+                id="chkSkipInteraction"
+                v-model="skipInteraction"
+                class="checkbox"
+                type="checkbox"
+                @change="onChange($event)"
+            />
+        </label>
+        <label class="pref" for="chkSkipSelfPromo">
+            <strong v-t="'actions.skip_self_promo'" />
+            <input
+                id="chkSkipSelfPromo"
+                v-model="skipSelfPromo"
+                class="checkbox"
+                type="checkbox"
+                @change="onChange($event)"
+            />
+        </label>
+        <label class="pref" for="chkSkipNonMusic">
+            <strong v-t="'actions.skip_non_music'" />
+            <input
+                id="chkSkipNonMusic"
+                v-model="skipMusicOffTopic"
+                class="checkbox"
+                type="checkbox"
+                @change="onChange($event)"
+            />
+        </label>
+        <label class="pref" for="chkSkipHighlight">
+            <strong v-t="'actions.skip_highlight'" />
+            <input
+                id="chkSkipHighlight"
+                v-model="skipHighlight"
+                class="checkbox"
+                type="checkbox"
+                @change="onChange($event)"
+            />
+        </label>
+        <label class="pref" for="chkSkipFiller">
+            <strong v-t="'actions.skip_filler_tangent'" />
+            <input
+                id="chkSkipFiller"
+                v-model="skipFiller"
+                class="checkbox"
+                type="checkbox"
+                @change="onChange($event)"
+            />
+        </label>
+        <label class="pref" for="chkShowMarkers">
+            <strong v-t="'actions.show_markers'" />
+            <input
+                id="chkShowMarkers"
+                v-model="showMarkers"
+                class="checkbox"
+                type="checkbox"
+                @change="onChange($event)"
+            />
+        </label>
+    </div>
     <h2 class="text-center" v-t="'titles.instance'" />
     <label class="pref" for="ddlInstanceSelection">
         <strong v-text="`${$t('actions.instance_selection')}:`" />
@@ -368,6 +413,8 @@ export default {
             minimizeComments: false,
             minimizeDescription: false,
             minimizeRecommendations: false,
+            minimizeChapters: false,
+            showWatchOnYouTube: false,
             watchHistory: false,
             searchHistory: false,
             hideWatched: false,
@@ -401,10 +448,12 @@ export default {
                 { code: "ml", name: "മലയാളം" },
                 { code: "nb_NO", name: "Norwegian Bokmål" },
                 { code: "nl", name: "Nederlands" },
+                { code: "or", name: "ଓଡ଼ିଆ" },
                 { code: "pl", name: "Polski" },
                 { code: "pt", name: "Português" },
                 { code: "pt_PT", name: "Português (Portugal)" },
                 { code: "pt_BR", name: "Português (Brasil)" },
+                { code: "ro", name: "Română" },
                 { code: "ru", name: "Русский" },
                 { code: "sr", name: "Српски" },
                 { code: "sv", name: "Svenska" },
@@ -504,9 +553,11 @@ export default {
             this.minimizeComments = this.getPreferenceBoolean("minimizeComments", false);
             this.minimizeDescription = this.getPreferenceBoolean("minimizeDescription", false);
             this.minimizeRecommendations = this.getPreferenceBoolean("minimizeRecommendations", false);
+            this.minimizeChapters = this.getPreferenceBoolean("minimizeChapters", false);
+            this.showWatchOnYouTube = this.getPreferenceBoolean("showWatchOnYouTube", false);
             this.watchHistory = this.getPreferenceBoolean("watchHistory", false);
             this.searchHistory = this.getPreferenceBoolean("searchHistory", false);
-            this.selectedLanguage = this.getPreferenceString("hl", await this.defaultLangage);
+            this.selectedLanguage = this.getPreferenceString("hl", await this.defaultLanguage);
             this.enabledCodecs = this.getPreferenceString("enabledCodecs", "vp9,avc").split(",");
             this.disableLBRY = this.getPreferenceBoolean("disableLBRY", false);
             this.proxyLBRY = this.getPreferenceBoolean("proxyLBRY", false);
@@ -530,8 +581,8 @@ export default {
                 if (
                     this.getPreferenceString("theme", "dark") !== this.selectedTheme ||
                     this.getPreferenceBoolean("watchHistory", false) != this.watchHistory ||
-                    this.getPreferenceString("hl", await this.defaultLangage) !== this.selectedLanguage ||
-                    this.getPreferenceString("enabledCodecs", "av1,vp9,avc") !== this.enabledCodecs.join(",")
+                    this.getPreferenceString("hl", await this.defaultLanguage) !== this.selectedLanguage ||
+                    this.getPreferenceString("enabledCodecs", "vp9,avc") !== this.enabledCodecs.join(",")
                 )
                     shouldReload = true;
 
@@ -563,6 +614,8 @@ export default {
                 localStorage.setItem("minimizeComments", this.minimizeComments);
                 localStorage.setItem("minimizeDescription", this.minimizeDescription);
                 localStorage.setItem("minimizeRecommendations", this.minimizeRecommendations);
+                localStorage.setItem("minimizeChapters", this.minimizeChapters);
+                localStorage.setItem("showWatchOnYouTube", this.showWatchOnYouTube);
                 localStorage.setItem("watchHistory", this.watchHistory);
                 localStorage.setItem("searchHistory", this.searchHistory);
                 if (!this.searchHistory) localStorage.removeItem("search_history");

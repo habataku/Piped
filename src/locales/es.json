@@ -121,7 +121,11 @@
         "instance_donations": "Donaciones para instancia",
         "status_page": "Estado",
         "hide_watched": "Ocultar los vídeos vistos en el feed",
-        "reply_count": "{count} respuestas"
+        "reply_count": "{count} respuestas",
+        "minimize_comments_default": "Minimizar comentarios por defecto",
+        "minimize_comments": "Minimizar comentarios",
+        "show_watch_on_youtube": "Mostrar botón Ver en YouTube",
+        "minimize_chapters_default": "Minimiza capítulos por defecto"
     },
     "titles": {
         "feed": "Fuente web",
@@ -134,7 +138,9 @@
         "playlists": "Listas de reproducción",
         "account": "Cuenta",
         "instance": "Instancia",
-        "player": "Reproductor"
+        "player": "Reproductor",
+        "livestreams": "Directos",
+        "channels": "Canales"
     },
     "player": {
         "watch_on": "Ver en {0}"
@@ -161,6 +167,7 @@
         "preferences_note": "Nota: las preferencias se guardan en el almacenamiento local de tu navegador. Al borrar los datos del navegador se restablecerán.",
         "page_not_found": "Página no encontrada",
         "copied": "¡Copiado!",
-        "cannot_copy": "¡No se puede copiar!"
+        "cannot_copy": "¡No se puede copiar!",
+        "local_storage": "Esta acción requiere «localStorage», ¿están activadas las «cookies»?"
     }
 }

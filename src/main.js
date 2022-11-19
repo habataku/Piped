@@ -21,7 +21,7 @@ import {
     faServer,
     faDonate,
 } from "@fortawesome/free-solid-svg-icons";
-import { faGithub, faBitcoin } from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faBitcoin, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(
     faEye,
@@ -31,6 +31,7 @@ library.add(
     faCheck,
     faHeart,
     faHeadphones,
+    faYoutube,
     faRss,
     faChevronLeft,
     faLevelDownAlt,
@@ -88,7 +89,17 @@ const mixin = {
             return str;
         },
         numberFormat(num) {
-            const formatter = Intl.NumberFormat(undefined, { notation: "compact" });
+            var loc = `${this.getPreferenceString("hl")}-${this.getPreferenceString("region")}`;
+
+            try {
+                Intl.getCanonicalLocales(loc);
+            } catch {
+                loc = undefined;
+            }
+
+            const formatter = Intl.NumberFormat(loc, {
+                notation: "compact",
+            });
             return formatter.format(num);
         },
         addCommas(num) {
@@ -107,8 +118,12 @@ const mixin = {
         purifyHTML(original) {
             return DOMPurify.sanitize(original);
         },
-        setPreference(key, value) {
-            if (localStorage) localStorage.setItem(key, value);
+        setPreference(key, value, disableAlert = false) {
+            try {
+                localStorage.setItem(key, value);
+            } catch {
+                if (!disableAlert) alert(this.$t("info.local_storage"));
+            }
         },
         getPreferenceBoolean(key, defaultVal) {
             var value;
@@ -193,7 +208,11 @@ const mixin = {
             }
         },
         getLocalSubscriptions() {
-            return JSON.parse(localStorage.getItem("localSubscriptions"));
+            try {
+                return JSON.parse(localStorage.getItem("localSubscriptions"));
+            } catch {
+                return [];
+            }
         },
         isSubscribedLocally(channelId) {
             const localSubscriptions = this.getLocalSubscriptions();
@@ -207,7 +226,13 @@ const mixin = {
             else localSubscriptions.push(channelId);
             // Sort for better cache hits
             localSubscriptions.sort();
-            localStorage.setItem("localSubscriptions", JSON.stringify(localSubscriptions));
+            try {
+                localStorage.setItem("localSubscriptions", JSON.stringify(localSubscriptions));
+                return true;
+            } catch {
+                alert(this.$t("info.local_storage"));
+            }
+            return false;
         },
         getUnauthenticatedChannels() {
             const localSubscriptions = this.getLocalSubscriptions() ?? [];
@@ -237,7 +262,7 @@ const mixin = {
                 return false;
             }
         },
-        async defaultLangage() {
+        async defaultLanguage() {
             const languages = window.navigator.languages;
             for (let i = 0; i < languages.length; i++) {
                 try {

@@ -10,7 +10,9 @@
         "feed": "ערוץ עדכונים",
         "account": "חשבון",
         "playlists": "רשימות נגינה",
-        "instance": "עותק"
+        "instance": "עותק",
+        "livestreams": "שידורים חיים",
+        "channels": "ערוצים"
     },
     "player": {
         "watch_on": "לצפות ב־{0}"
@@ -112,7 +114,11 @@
         "source_code": "קוד מקור",
         "hide_watched": "הסתרת הסרטונים שנצפו בערוץ העדכונים",
         "instance_donations": "תרומות להפעלה",
-        "reply_count": "{count} תגובות"
+        "reply_count": "{count} תגובות",
+        "minimize_comments_default": "צמצום הערות כברירת מחדל",
+        "minimize_comments": "צמצום הערות",
+        "minimize_chapters_default": "מזעור הפרקים כברירת מחדל",
+        "show_watch_on_youtube": "הצגת כפתור לצפייה ב־YouTube"
     },
     "comment": {
         "pinned_by": "ננעץ על ידי {author}",
@@ -158,7 +164,8 @@
         "preferences_note": "לתשומת לבך: ההעדפות נשמרות באחסון המקומי של הדפדפן שלך. מחיקת נתוני הדפדפן שלך תאפס אותם.",
         "page_not_found": "העמוד לא נמצא",
         "copied": "הועתק!",
-        "cannot_copy": "לא ניתן להעתיק!"
+        "cannot_copy": "לא ניתן להעתיק!",
+        "local_storage": "פעולה זו דורשת אחסון מקומי (localStorage), האם עוגיות פעילות?"
     },
     "subscriptions": {
         "subscribed_channels_count": "נרשמת אל: {0}"

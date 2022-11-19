@@ -96,7 +96,11 @@
         "documentation": "Belgelendirme",
         "instance_donations": "Örnek bağışları",
         "status_page": "Durum",
-        "reply_count": "{count} yanıt"
+        "reply_count": "{count} yanıt",
+        "minimize_comments": "Yorumları Küçült",
+        "minimize_comments_default": "Yorumları Öntanımlı Olarak Küçült",
+        "show_watch_on_youtube": "YouTube'da İzle düğmesini göster",
+        "minimize_chapters_default": "Bölümleri Öntanımlı Olarak Küçült"
     },
     "player": {
         "watch_on": "{0} üzerinde izle"
@@ -112,7 +116,9 @@
         "playlists": "Oynatma Listeleri",
         "account": "Hesap",
         "instance": "Örnek",
-        "player": "Oynatıcı"
+        "player": "Oynatıcı",
+        "livestreams": "Canlı Yayınlar",
+        "channels": "Kanallar"
     },
     "video": {
         "sponsor_segments": "Sponsorlar Bölümleri",
@@ -164,6 +170,7 @@
         "preferences_note": "Not: Tercihler tarayıcınızın yerel depolama alanına kaydedilir. Tarayıcı verilerinizi silmek onları sıfırlayacaktır.",
         "page_not_found": "Sayfa bulunamadı",
         "copied": "Kopyalandı!",
-        "cannot_copy": "Kopyalanamıyor!"
+        "cannot_copy": "Kopyalanamıyor!",
+        "local_storage": "Bu eylem localStorage gerektirir, çerezler etkin mi?"
     }
 }
