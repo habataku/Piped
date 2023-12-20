@@ -27,8 +27,13 @@ const routes = [
         component: () => import("../components/PlaylistPage.vue"),
     },
     {
-        path: "/:path(v|w|embed|shorts|watch)/:v?",
+        path: "/:path(v|w|embed|live|shorts|watch)/:v?",
         name: "WatchVideo",
+        component: () => import("../components/WatchVideo.vue"),
+    },
+    {
+        path: "/watch_videos",
+        name: "WatchVideos",
         component: () => import("../components/WatchVideo.vue"),
     },
     {
@@ -39,6 +44,11 @@ const routes = [
     {
         path: "/:path(channel|user|c)/:channelId/:videos?",
         name: "Channel",
+        component: () => import("../components/ChannelPage.vue"),
+    },
+    {
+        path: "/@:channelId",
+        name: "Channel handle",
         component: () => import("../components/ChannelPage.vue"),
     },
     {

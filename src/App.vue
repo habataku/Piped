@@ -1,12 +1,13 @@
 <template>
-    <div class="w-full min-h-screen px-1vw reset" :class="[theme]">
-        <NavBar />
-
-        <router-view v-slot="{ Component }">
-            <keep-alive :max="5">
-                <component :is="Component" :key="$route.fullPath" />
-            </keep-alive>
-        </router-view>
+    <div class="reset min-h-screen w-full flex flex-col px-1vw py-5 antialiased" :class="[theme]">
+        <div class="flex-1">
+            <NavBar />
+            <router-view v-slot="{ Component }">
+                <keep-alive :max="5">
+                    <component :is="Component" :key="$route.fullPath" />
+                </keep-alive>
+            </router-view>
+        </div>
 
         <FooterComponent />
     </div>
@@ -28,38 +29,46 @@ export default {
             theme: "dark",
         };
     },
-    methods: {
-        setTheme() {
-            let themePref = this.getPreferenceString("theme", "dark");
-            if (themePref == "auto") this.theme = darkModePreference.matches ? "dark" : "light";
-            else this.theme = themePref;
-        },
-    },
     mounted() {
         this.setTheme();
         darkModePreference.addEventListener("change", () => {
             this.setTheme();
         });
-        if (this.getPreferenceBoolean("watchHistory", false))
-            if ("indexedDB" in window) {
-                const request = indexedDB.open("piped-db", 2);
-                request.onupgradeneeded = ev => {
-                    const db = request.result;
-                    console.log("Upgrading object store.");
-                    if (!db.objectStoreNames.contains("watch_history")) {
-                        const store = db.createObjectStore("watch_history", { keyPath: "videoId" });
-                        store.createIndex("video_id_idx", "videoId", { unique: true });
-                        store.createIndex("id_idx", "id", { unique: true, autoIncrement: true });
-                    }
-                    if (ev.oldVersion < 2) {
-                        const store = request.transaction.objectStore("watch_history");
-                        store.createIndex("watchedAt", "watchedAt", { unique: false });
-                    }
-                };
-                request.onsuccess = e => {
-                    window.db = e.target.result;
-                };
-            } else console.log("This browser doesn't support IndexedDB");
+
+        if ("indexedDB" in window) {
+            const request = indexedDB.open("piped-db", 5);
+            request.onupgradeneeded = ev => {
+                const db = request.result;
+                console.log("Upgrading object store.");
+                if (!db.objectStoreNames.contains("watch_history")) {
+                    const store = db.createObjectStore("watch_history", { keyPath: "videoId" });
+                    store.createIndex("video_id_idx", "videoId", { unique: true });
+                    store.createIndex("id_idx", "id", { unique: true, autoIncrement: true });
+                }
+                if (ev.oldVersion < 2) {
+                    const store = request.transaction.objectStore("watch_history");
+                    store.createIndex("watchedAt", "watchedAt", { unique: false });
+                }
+                if (!db.objectStoreNames.contains("playlist_bookmarks")) {
+                    const store = db.createObjectStore("playlist_bookmarks", { keyPath: "playlistId" });
+                    store.createIndex("playlist_id_idx", "playlistId", { unique: true });
+                    store.createIndex("id_idx", "id", { unique: true, autoIncrement: true });
+                }
+                if (!db.objectStoreNames.contains("channel_groups")) {
+                    const store = db.createObjectStore("channel_groups", { keyPath: "groupName" });
+                    store.createIndex("groupName", "groupName", { unique: true });
+                }
+                if (!db.objectStoreNames.contains("playlists")) {
+                    const playlistStore = db.createObjectStore("playlists", { keyPath: "playlistId" });
+                    playlistStore.createIndex("playlistId", "playlistId", { unique: true });
+                    const playlistVideosStore = db.createObjectStore("playlist_videos", { keyPath: "videoId" });
+                    playlistVideosStore.createIndex("videoId", "videoId", { unique: true });
+                }
+            };
+            request.onsuccess = e => {
+                window.db = e.target.result;
+            };
+        } else console.log("This browser doesn't support IndexedDB");
 
         const App = this;
 
@@ -84,6 +93,29 @@ export default {
             }
         })();
     },
+    methods: {
+        setTheme() {
+            let themePref = this.getPreferenceString("theme", "dark"); // dark, light or auto
+            const themes = {
+                dark: "dark",
+                light: "light",
+                auto: darkModePreference.matches ? "dark" : "light",
+            };
+
+            this.theme = themes[themePref];
+
+            this.changeTitleBarColor();
+
+            // Used for the scrollbar
+            const root = document.querySelector(":root");
+            this.theme === "dark" ? root.classList.add("dark") : root.classList.remove("dark");
+        },
+        changeTitleBarColor() {
+            const currentColor = { dark: "#0F0F0F", light: "#FFF" };
+            const themeColor = document.querySelector("meta[name='theme-color']");
+            themeColor.setAttribute("content", currentColor[this.theme]);
+        },
+    },
 };
 </script>
 
@@ -96,8 +128,12 @@ b {
     text-align: start;
 }
 
+:root {
+    color-scheme: only light;
+}
+
 ::-webkit-scrollbar {
-    background-color: #15191a;
+    background-color: #d1d5db;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -116,13 +152,40 @@ b {
     background-color: #0b0e0f;
 }
 
+:root {
+    scrollbar-color: #4b4f52 #d1d5db;
+}
+
+.dark ::-webkit-scrollbar {
+    background-color: #15191a;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background-color: #4b4f52;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background-color: #5b6469;
+}
+
+.dark ::-webkit-scrollbar-thumb:active {
+    background-color: #485053;
+}
+
+.dark ::-webkit-scrollbar-corner {
+    background-color: #0b0e0f;
+}
+
+:root.dark {
+    scrollbar-color: #4b4f52 #15191a;
+}
+
 * {
-    scrollbar-color: #15191a #444a4e;
     @apply font-sans;
 }
 
 .video-grid {
-    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 col-auto lt-md:gap-x-2.5 md:gap-x-1vw gap-y-1.5;
+    @apply grid grid-cols-1 mx-2 sm:mx-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 col-auto lt-md:gap-x-3 md:gap-x-6 gap-y-5;
 }
 
 .btn {
@@ -159,12 +222,14 @@ b {
 }
 
 .input {
-    @apply pl-2.5;
+    @apply px-2.5;
 }
 
 .input:focus {
-    @apply border-2 border-red-500 outline-none;
-    box-shadow: 0 0 15px rgba(239, 68, 68, var(--un-border-opacity));
+    @apply outline-red-500;
+    outline-style: solid;
+    outline-width: 2px;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 1);
 }
 
 hr {

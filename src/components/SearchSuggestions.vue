@@ -1,15 +1,14 @@
 <template>
-    <div class="absolute suggestions-container">
+    <div class="suggestions-container absolute">
         <ul>
-            <li
-                v-for="(suggestion, i) in searchSuggestions"
-                :key="i"
-                class="suggestion"
-                :class="{ 'suggestion-selected': selected === i }"
-                @mouseover="onMouseOver(i)"
-                @mousedown.stop="onClick(i)"
-                v-text="suggestion"
-            />
+            <li v-for="(suggestion, i) in searchSuggestions" :key="i" @mouseover="onMouseOver(i)">
+                <router-link
+                    class="suggestion"
+                    :class="{ 'suggestion-selected': selected === i }"
+                    :to="`/results?search_query=${encodeURIComponent(suggestion)}`"
+                    >{{ suggestion }}</router-link
+                >
+            </li>
         </ul>
     </div>
 </template>
@@ -50,12 +49,16 @@ export default {
             if (!this.searchText) {
                 if (this.getPreferenceBoolean("searchHistory", false))
                     this.searchSuggestions = JSON.parse(localStorage.getItem("search_history")) ?? [];
+            } else if (this.getPreferenceBoolean("searchSuggestions", true)) {
+                this.searchSuggestions =
+                    (
+                        await this.fetchJson(this.apiUrl() + "/opensearch/suggestions", {
+                            query: this.searchText,
+                        })
+                    )?.[1] ?? [];
             } else {
-                this.searchSuggestions = (
-                    await this.fetchJson(this.apiUrl() + "/opensearch/suggestions", {
-                        query: this.searchText,
-                    })
-                )?.[1];
+                this.searchSuggestions = [];
+                return;
             }
             this.searchSuggestions.unshift(this.searchText);
             this.setSelected(0);
@@ -67,10 +70,6 @@ export default {
         },
         onClick(i) {
             this.setSelected(i);
-            this.$router.push({
-                name: "SearchResults",
-                query: { search_query: this.searchSuggestions[i] },
-            });
         },
         setSelected(val) {
             this.selected = val;
@@ -82,7 +81,7 @@ export default {
 
 <style>
 .suggestions-container {
-    @apply left-1/2 translate-x-[-50%] transform-gpu max-w-3xl w-full box-border p-y-1.25 z-10 lt-md:max-w-[calc(100%-0.5rem)] bg-gray-300;
+    @apply left-1/2 translate-x-[-50%] transform-gpu max-w-3xl w-full box-border z-10 lt-md:max-w-[calc(100%-0.5rem)] bg-gray-300;
 }
 
 .dark .suggestions-container {
@@ -98,6 +97,6 @@ export default {
 }
 
 .suggestion {
-    @apply p-y-1;
+    @apply block w-full p-1;
 }
 </style>

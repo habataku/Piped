@@ -34,8 +34,8 @@
         "most_recent": "Najnovšie",
         "sort_by": "Zoradiť podľa:",
         "view_subscriptions": "Zobraziť odbery",
-        "unsubscribe": "Zrušiť odber - {count}",
-        "subscribe": "Odberať - {count}",
+        "unsubscribe": "Zrušiť odber",
+        "subscribe": "Odberať",
         "minimize_recommendations": "Minimalizujte odporúčania",
         "show_recommendations": "Zobraziť odporúčania",
         "export_to_json": "Exportovať do JSONu",
@@ -72,8 +72,6 @@
         "view_ssl_score": "Zobraziť SSL skóre",
         "filter": "Filter",
         "delete_playlist_video_confirm": "Odstrániť video zo zoznamu?",
-        "rename_playlist": "Premenovať zoznam skladieb",
-        "new_playlist_name": "Nový názov zoznamu skladieb",
         "share": "Zdieľať",
         "follow_link": "Nasledujte odkaz",
         "loading": "Načítavanie...",
@@ -89,7 +87,10 @@
         "instance_auth_selection": "Výber inštancie autentifikácie",
         "invalidate_session": "Odhláste sa zo všetkých zariadení",
         "clone_playlist": "Klonovať zoznam skladieb",
-        "clone_playlist_success": "Úspešne klonované!"
+        "clone_playlist_success": "Úspešne klonované!",
+        "skip_button_only": "Ukázať tlačidlo na preskočenie",
+        "skip_automatically": "Automaticky",
+        "min_segment_length": "Minimálna dĺžka segmentu (v sekundách)"
     },
     "player": {
         "watch_on": "Pozerať na {0}"
@@ -105,7 +106,10 @@
         "playlists": "Playlisty",
         "account": "Účet",
         "instance": "Inštancia",
-        "player": "Prehrávač"
+        "player": "Prehrávač",
+        "livestreams": "Živé vysielania",
+        "bookmarks": "Záložky",
+        "channels": "Kanály"
     },
     "preferences": {
         "up_to_date": "Aktuálny?",

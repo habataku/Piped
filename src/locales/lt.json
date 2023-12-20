@@ -1,7 +1,7 @@
 {
     "actions": {
-        "unsubscribe": "Atšaukti prenumeratą - {count}",
-        "subscribe": "Prenumeruoti - {count}",
+        "unsubscribe": "Atšaukti prenumeratą",
+        "subscribe": "Prenumeruoti",
         "instances_list": "Perdavimo šaltinių sąrašas",
         "language_selection": "Kalbos pasirinkimas",
         "store_watch_history": "Saugoti žiūrėjimo istoriją",
@@ -80,7 +80,6 @@
         "reply_count": "{count} atsakymai",
         "show_chapters": "Skirsniai",
         "piped_link": "Piped nuoroda",
-        "rename_playlist": "Pervardyti grojaraštį",
         "follow_link": "Sekti nuorodą",
         "store_search_history": "Išsaugoti paieškos istoriją",
         "hide_watched": "Slėpti žiūrėtus vaizdo įrašus sklaidos kanale",
@@ -88,7 +87,6 @@
         "status_page": "Būsena",
         "copy_link": "Kopijuoti nuorodą",
         "share": "Dalintis",
-        "new_playlist_name": "Naujas grojaraščio pavadinimas",
         "minimize_recommendations_default": "Sumažinti rekomendacijas automatiškai",
         "instance_donations": "Perdavimo šaltinio parama",
         "instance_auth_selection": "Autentifikavimo perdavimo šaltinio pasirinkimas",
@@ -100,7 +98,8 @@
         "minimize_comments_default": "Suskleisti komentarus automatiškai",
         "minimize_comments": "Suskleisti komentarus",
         "show_watch_on_youtube": "Rodyti mygtuką „Žiūrėti YouTube“",
-        "minimize_chapters_default": "Suskleisti skirsnius automatiškai"
+        "minimize_chapters_default": "Suskleisti skirsnius automatiškai",
+        "no_valid_playlists": "Faile nėra galiojančių grojaraščių!"
     },
     "player": {
         "watch_on": "Žiūrėti per {0}"
@@ -132,7 +131,7 @@
     "comment": {
         "pinned_by": "Prisegė {author}",
         "loading": "Įkeliami komentarai...",
-        "disabled": "Komentarai yra išjungti įkėlėjo.",
+        "disabled": "Įkėlėjas išjungė komentarus.",
         "user_disabled": "Komentarai yra išjungti nustatymuose."
     },
     "video": {
